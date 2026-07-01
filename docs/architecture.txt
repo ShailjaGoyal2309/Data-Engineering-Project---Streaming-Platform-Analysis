@@ -1,0 +1,205 @@
+# Streaming Analytics Platform Architecture
+
+## Overview
+
+This project demonstrates an end-to-end streaming analytics platform built on Microsoft Azure using a Medallion Architecture (Bronze, Silver, Gold). The system simulates streaming data, automatically processes it using Azure Data Factory and Azure Databricks (PySpark), stores the processed data in Azure Data Lake Storage Gen2, and visualizes business insights using Power BI.
+
+---
+
+## Architecture Flow
+
+```
+                           Streaming Analytics Platform
+
+                    ┌─────────────────────────────────────┐
+                    │      Data Generation Notebook        │
+                    │        (Azure Databricks)            │
+                    └─────────────────────────────────────┘
+                                      │
+                                      ▼
+                        Raw CSV / Parquet Files
+                                      │
+                                      ▼
+                   Azure Data Lake Storage Gen2 (Raw Layer)
+                                      │
+                                      ▼
+                  Storage Event Trigger (Azure Data Factory)
+                                      │
+                                      ▼
+                    Azure Data Factory Pipeline
+                                      │
+                                      ▼
+                     Azure Databricks Processing
+                                      │
+         ┌────────────────────────────┼────────────────────────────┐
+         ▼                            ▼                            ▼
+   Bronze Layer                 Silver Layer                 Gold Layer
+ Raw Data Storage          Cleaned & Validated         Analytics Ready Data
+         │                            │                            │
+         └────────────────────────────┴────────────────────────────┘
+                                      │
+                                      ▼
+                             Power BI Dashboard
+                                      │
+                                      ▼
+                        Interactive Business Insights
+```
+
+---
+
+## Components
+
+### 1. Data Generation
+- Simulates streaming platform activity.
+- Generates:
+  - Users
+  - Movies
+  - Watch Logs
+  - Subscription Data
+
+---
+
+### 2. Azure Data Lake Storage Gen2
+Stores the data across multiple layers:
+
+- Raw
+- Bronze
+- Silver
+- Gold
+
+---
+
+### 3. Azure Data Factory
+Responsible for:
+
+- Storage Event Trigger
+- Pipeline orchestration
+- Notebook execution
+- Automated workflow
+
+---
+
+### 4. Azure Databricks (PySpark)
+
+Processes data through the Medallion Architecture.
+
+#### Bronze Layer
+- Raw ingestion
+- Minimal transformations
+
+#### Silver Layer
+- Data cleaning
+- Duplicate removal
+- Schema validation
+- Feature engineering
+
+#### Gold Layer
+- Business aggregations
+- Analytics tables
+- Reporting datasets
+
+Generated Gold Tables:
+
+- watch_completion_fact
+- movie_popularity
+- subscription_summary
+- trending_genres
+- user_genre_preference_matrix
+
+---
+
+### 5. Power BI
+
+Visualizes insights using four dashboard pages:
+
+- Overview Dashboard
+- User Analytics
+- Content Analytics
+- Behavior Insights
+
+Includes:
+
+- KPI Cards
+- Line Charts
+- Bar Charts
+- Donut Charts
+- Scatter Plot
+- Matrix Heatmap
+- Interactive Slicers
+
+---
+
+## Technology Stack
+
+- Microsoft Azure
+- Azure Data Lake Storage Gen2
+- Azure Data Factory
+- Azure Databricks
+- Apache Spark (PySpark)
+- Python
+- SQL
+- Power BI
+- Git & GitHub
+
+---
+
+## Data Flow Summary
+
+Data Generation
+↓
+
+Azure Data Lake (Raw)
+
+↓
+
+Storage Event Trigger
+
+↓
+
+Azure Data Factory Pipeline
+
+↓
+
+Azure Databricks
+
+↓
+
+Bronze Layer
+
+↓
+
+Silver Layer
+
+↓
+
+Gold Layer
+
+↓
+
+Power BI Dashboard
+
+↓
+
+Business Insights
+
+---
+
+## Architecture Pattern
+
+This project follows the Medallion Architecture.
+
+Raw Layer
+↓
+
+Bronze Layer
+↓
+
+Silver Layer
+↓
+
+Gold Layer
+↓
+
+Analytics
+
+This architecture improves scalability, maintainability, and data quality while supporting automated analytics pipelines.
